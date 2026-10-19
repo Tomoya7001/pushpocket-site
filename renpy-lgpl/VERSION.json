@@ -1,0 +1,13 @@
+{
+  "name": "renpy-ios",
+  "license": "LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause",
+  "version": "8.5.3.26051504",
+  "approvedByOwner": "2026-10-09 (docs/legal/lgpl-allowlist.md entry third_party:renpy-ios@8.5.3.26051504, decision D-015)",
+  "notes": "F-105 stage B. RenPyLGPL.xcframework: the LGPL parts of Ren'Py 8.5.3 as ONE separate, relinkable dynamic framework (iphoneos arm64 + iphonesimulator arm64, MH_DYLIB, no x86_64). Built FROM SOURCE by tools/renpy/build-lgpl.sh (make renpy-lgpl); inputs pinned with sha256 in tools/renpy/inputs.lock; BUILD-INPUTS.sha256 is the build stamp. SDL2 symbols are imported from @rpath/SDL2.framework/SDL2 (zlib, embedded by the app later). Relink instructions: docs/legal/renpy-lgpl-compliance.md.",
+  "renpy": { "license": "MIT (per-file exceptions below)", "tag": "8.5.3.26051504", "commit": "39895c1e017f0b36ffea2447d97eccd69d76ee1c", "files": ["src/pygame/alphablit.c (LGPL-2.0-or-later)", "src/pygame/SDL_gfxPrimitives.c (LGPL, SDL_gfx by A. Schiffler)"] },
+  "renpyBuild": { "license": "MIT", "tag": "renpy-8.5.3.26051504", "commit": "7bfab40c1174f622f644b24669afd5fb167fbb79", "used": "patches/ffmpeg-4.3.1-sse.diff, patches/ffmpeg-4.3.1-ff_seek_frame_binary.diff, FFmpeg configure flags of tasks/ffmpeg.py" },
+  "FFmpeg": { "license": "LGPL-2.1-or-later", "version": "4.3.1", "source": "https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.gz", "sha256": "45035f15d6f192772de2309c846e1d60472694f479679354a39c699719e53772" },
+  "fribidi": { "license": "LGPL-2.1-or-later", "version": "1.0.7", "source": "https://github.com/fribidi/fribidi/releases/download/v1.0.7/fribidi-1.0.7.tar.bz2", "sha256": "5ab5f21e9f2fc57b4b40f8ea8f14dba78a5cc46d9cf94bc5e00a58e6886a935d" },
+  "libaom": { "license": "BSD-2-Clause", "version": "3.5.0", "source": "https://storage.googleapis.com/aom-releases/libaom-3.5.0.tar.gz", "sha256": "d37dbee372e2430a7efde813984ae6d78bdf1fc4080ebe32457c9115408b0738", "notes": "AV1 decoder only, linked statically inside RenPyLGPL; also under the AOM Patent License 1.0 (text in LICENSE)." },
+  "SDL2": { "license": "Zlib", "version": "2.0.20", "source": "https://www.libsdl.org/release/SDL2-2.0.20.tar.gz", "sha256": "c56aba1d7b5b0e7e999e4a7698c70b63a3394ff9704b5f6e1c57e0c16f04dd06", "notes": "headers only (compile alphablit.c / SDL_gfxPrimitives.c); no SDL code is inside RenPyLGPL" }
+}

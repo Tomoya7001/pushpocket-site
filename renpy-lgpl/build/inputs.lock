@@ -1,0 +1,16 @@
+# F-105 stage B: pinned inputs of RenPyLGPL.xcframework (tools/renpy/build-lgpl.sh).
+# Format: <cache file name> <sha256> <url>. Every file is fetched into build/renpy-lgpl/cache and checked;
+# a download failure or a checksum mismatch stops the build. Changing a line changes the build stamp.
+# Pins: renpy tag 8.5.3.26051504 (commit 39895c1e017f0b36ffea2447d97eccd69d76ee1c),
+#       renpy-build tag renpy-8.5.3.26051504 (commit 7bfab40c1174f622f644b24669afd5fb167fbb79).
+ffmpeg-4.3.1.tar.gz 45035f15d6f192772de2309c846e1d60472694f479679354a39c699719e53772 https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.gz
+ffmpeg-4.3.1-sse.diff 026b866b885bfa0a888275b237cbca46937a9a8a8c857d04984ad4a25bf9898b https://raw.githubusercontent.com/renpy/renpy-build/7bfab40c1174f622f644b24669afd5fb167fbb79/patches/ffmpeg-4.3.1-sse.diff
+ffmpeg-4.3.1-ff_seek_frame_binary.diff cdaf005f4ab6e63741e8a6ece327b46864c0e5a5d280e9195d03f2035547286e https://raw.githubusercontent.com/renpy/renpy-build/7bfab40c1174f622f644b24669afd5fb167fbb79/patches/ffmpeg-4.3.1-ff_seek_frame_binary.diff
+fribidi-1.0.7.tar.bz2 5ab5f21e9f2fc57b4b40f8ea8f14dba78a5cc46d9cf94bc5e00a58e6886a935d https://github.com/fribidi/fribidi/releases/download/v1.0.7/fribidi-1.0.7.tar.bz2
+libaom-3.5.0.tar.gz d37dbee372e2430a7efde813984ae6d78bdf1fc4080ebe32457c9115408b0738 https://storage.googleapis.com/aom-releases/libaom-3.5.0.tar.gz
+SDL2-2.0.20.tar.gz c56aba1d7b5b0e7e999e4a7698c70b63a3394ff9704b5f6e1c57e0c16f04dd06 https://www.libsdl.org/release/SDL2-2.0.20.tar.gz
+renpy-alphablit.c 3bd0f6de23d29d88b3d7126762e9b0849ecdd943633d86d9dedab4a03a5bbb7a https://raw.githubusercontent.com/renpy/renpy/39895c1e017f0b36ffea2447d97eccd69d76ee1c/src/pygame/alphablit.c
+renpy-surface.h 75088e82627f351b0d791b04d5d57a9fe200fcaf9d7abf8bb7ad6e75341d40b9 https://raw.githubusercontent.com/renpy/renpy/39895c1e017f0b36ffea2447d97eccd69d76ee1c/src/pygame/surface.h
+renpy-SDL_gfxPrimitives.c f31aebe6683c7da386ef3f5f0fcc8a3075e43b0ff9abfcfe81ac8ac872816fd3 https://raw.githubusercontent.com/renpy/renpy/39895c1e017f0b36ffea2447d97eccd69d76ee1c/src/pygame/SDL_gfxPrimitives.c
+renpy-SDL_gfxPrimitives.h 679c3a487172045bb7310ed043ddb58ff61b05a12a871e89a9609e3071dec73e https://raw.githubusercontent.com/renpy/renpy/39895c1e017f0b36ffea2447d97eccd69d76ee1c/src/pygame/SDL_gfxPrimitives.h
+renpy-SDL_gfxPrimitives_font.h de781d6e5dbd8aa9a6d7c47f5177e3124df8ebf8c4a745e5f55ff82f047123a5 https://raw.githubusercontent.com/renpy/renpy/39895c1e017f0b36ffea2447d97eccd69d76ee1c/src/pygame/SDL_gfxPrimitives_font.h

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PushPocket - Ren'Py LGPL source / Ren'Py LGPL 部分のソース</title>
+<style>
+:root{color-scheme:light dark;--fg:#1a1a1a;--muted:#5c5c5c;--bg:#fff;--line:#ddd;--link:#0b57d0;--code:#f3f3f3}
+@media (prefers-color-scheme:dark){:root{--fg:#ececec;--muted:#a8a8a8;--bg:#121212;--line:#333;--link:#8ab4f8;--code:#1e1e1e}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Segoe UI",Roboto,"Noto Sans JP",sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:960px;margin:0 auto;padding:24px 20px 48px}
+h1{font-size:1.5rem;line-height:1.3;margin:0 0 12px}
+h2{font-size:1.15rem;margin:32px 0 8px}
+p,li{overflow-wrap:anywhere}
+p{margin:0 0 12px}
+a{color:var(--link)}
+nav{font-size:.95rem}
+nav a{display:inline-block;padding:8px 0;margin-right:16px}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85rem}
+td code{word-break:break-all}
+pre{background:var(--code);padding:12px;overflow-x:auto;white-space:pre}
+.muted{color:var(--muted)}
+.lang{border-top:1px solid var(--line);margin-top:40px;padding-top:8px}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">PushPocket</a><a href="../support/">Support</a><a href="#en">English</a><a href="#ja">日本語</a></nav>
+
+<section id="en">
+<h1>Ren'Py LGPL components: corresponding source</h1>
+<p>PushPocket runs Ren'Py games with an embedded Ren'Py 8.5.3.26051504 runtime
+(renpy commit <code>39895c1e017f0b36ffea2447d97eccd69d76ee1c</code>,
+renpy-build commit <code>7bfab40c1174f622f644b24669afd5fb167fbb79</code>).
+The LGPL parts of that runtime are not linked into the app binary. They are shipped as one separate dynamic framework,
+<code>PushPocket.app/Frameworks/RenPyLGPL.framework</code>, which you can rebuild and replace.</p>
+<p>This page provides the exact source files used to build that framework, our build scripts, and the instructions to relink.
+These files will stay available here for at least three years after the last distribution of the app version that uses them.
+Every file below is checked against the sha256 listed (the same values as in <a href="build/inputs.lock">inputs.lock</a>).</p>
+
+<h2>1. Source of the components in RenPyLGPL.framework</h2>
+<div class="wrap">
+<table>
+<thead><tr><th>Component</th><th>Version</th><th>License</th><th>File</th><th>sha256</th></tr></thead>
+<tbody>
+<tr><td>FFmpeg (libavcodec, libavformat, libavfilter, libavresample, libavutil, libswresample, libswscale)</td><td>4.3.1</td><td>LGPL-2.1-or-later (configured without --enable-gpl, --enable-nonfree, --enable-version3)</td><td><a href="src/ffmpeg-4.3.1.tar.gz">ffmpeg-4.3.1.tar.gz</a> (14.1 MB)</td><td><code>45035f15d6f192772de2309c846e1d60472694f479679354a39c699719e53772</code></td></tr>
+<tr><td>FFmpeg patch (from renpy-build)</td><td>renpy-build 7bfab40c</td><td>LGPL-2.1-or-later (same as FFmpeg)</td><td><a href="src/ffmpeg-4.3.1-sse.diff">ffmpeg-4.3.1-sse.diff</a></td><td><code>026b866b885bfa0a888275b237cbca46937a9a8a8c857d04984ad4a25bf9898b</code></td></tr>
+<tr><td>FFmpeg patch (from renpy-build)</td><td>renpy-build 7bfab40c</td><td>LGPL-2.1-or-later (same as FFmpeg)</td><td><a href="src/ffmpeg-4.3.1-ff_seek_frame_binary.diff">ffmpeg-4.3.1-ff_seek_frame_binary.diff</a></td><td><code>cdaf005f4ab6e63741e8a6ece327b46864c0e5a5d280e9195d03f2035547286e</code></td></tr>
+<tr><td>GNU FriBidi</td><td>1.0.7</td><td>LGPL-2.1-or-later</td><td><a href="src/fribidi-1.0.7.tar.bz2">fribidi-1.0.7.tar.bz2</a> (2.1 MB)</td><td><code>5ab5f21e9f2fc57b4b40f8ea8f14dba78a5cc46d9cf94bc5e00a58e6886a935d</code></td></tr>
+<tr><td>alphablit.c (Ren'Py src/pygame, from pygame)</td><td>renpy 39895c1e</td><td>LGPL-2.0-or-later</td><td><a href="src/renpy-alphablit.c">renpy-alphablit.c</a></td><td><code>3bd0f6de23d29d88b3d7126762e9b0849ecdd943633d86d9dedab4a03a5bbb7a</code></td></tr>
+<tr><td>surface.h (header of alphablit.c)</td><td>renpy 39895c1e</td><td>LGPL-2.0-or-later</td><td><a href="src/renpy-surface.h">renpy-surface.h</a></td><td><code>75088e82627f351b0d791b04d5d57a9fe200fcaf9d7abf8bb7ad6e75341d40b9</code></td></tr>
+<tr><td>SDL_gfxPrimitives.c (SDL_gfx by A. Schiffler, Ren'Py src/pygame)</td><td>renpy 39895c1e</td><td>LGPL (the file states "LGPL" without a version; the LGPL-2.1 text is included)</td><td><a href="src/renpy-SDL_gfxPrimitives.c">renpy-SDL_gfxPrimitives.c</a></td><td><code>f31aebe6683c7da386ef3f5f0fcc8a3075e43b0ff9abfcfe81ac8ac872816fd3</code></td></tr>
+<tr><td>SDL_gfxPrimitives.h</td><td>renpy 39895c1e</td><td>LGPL (as above)</td><td><a href="src/renpy-SDL_gfxPrimitives.h">renpy-SDL_gfxPrimitives.h</a></td><td><code>679c3a487172045bb7310ed043ddb58ff61b05a12a871e89a9609e3071dec73e</code></td></tr>
+<tr><td>SDL_gfxPrimitives_font.h</td><td>renpy 39895c1e</td><td>LGPL (as above)</td><td><a href="src/renpy-SDL_gfxPrimitives_font.h">renpy-SDL_gfxPrimitives_font.h</a></td><td><code>de781d6e5dbd8aa9a6d7c47f5177e3124df8ebf8c4a745e5f55ff82f047123a5</code></td></tr>
+<tr><td>libaom (AV1 decoder, linked statically inside the framework; not LGPL)</td><td>3.5.0</td><td>BSD-2-Clause and AOM Patent License 1.0</td><td><a href="src/libaom-3.5.0.tar.gz">libaom-3.5.0.tar.gz</a> (5.2 MB)</td><td><code>d37dbee372e2430a7efde813984ae6d78bdf1fc4080ebe32457c9115408b0738</code></td></tr>
+<tr><td>SDL2 (headers only, used to compile alphablit.c and SDL_gfxPrimitives.c; no SDL code is in the framework; not LGPL)</td><td>2.0.20</td><td>Zlib</td><td><a href="src/SDL2-2.0.20.tar.gz">SDL2-2.0.20.tar.gz</a> (7.2 MB)</td><td><code>c56aba1d7b5b0e7e999e4a7698c70b63a3394ff9704b5f6e1c57e0c16f04dd06</code></td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted">The <code>renpy-</code> prefix is our cache name; the files are byte-identical to <code>src/pygame/&lt;name&gt;</code> in Ren'Py at the commit above.
+The upstream URL of every file is in <a href="build/inputs.lock">inputs.lock</a>.
+License texts: <a href="LICENSE.txt">LICENSE.txt</a> (LGPL-2.1, BSD-2-Clause and AOM Patent License 1.0 of libaom). The Zlib license of SDL2 is in <code>LICENSE.txt</code> inside the SDL2 archive.
+Component metadata: <a href="VERSION.json">VERSION.json</a>.</p>
+
+<h2>2. Build scripts</h2>
+<p>Written for PushPocket. They are not LGPL code; they are provided as part of the information needed to rebuild and relink the LGPL components.</p>
+<div class="wrap">
+<table>
+<thead><tr><th>File</th><th>Purpose</th><th>sha256</th></tr></thead>
+<tbody>
+<tr><td><a href="build/build-lgpl.sh">build-lgpl.sh</a></td><td>Fetches and checks the inputs, applies the two FFmpeg patches, builds and assembles <code>RenPyLGPL.xcframework</code> (FFmpeg configure flags are those of renpy-build <code>tasks/ffmpeg.py</code> for iOS, plus <code>--disable-programs</code>)</td><td><code>fdd9253f377d54a6225401469db2c8d328120cbc2a1ec0abcbb39f984c2efd08</code></td></tr>
+<tr><td><a href="build/check-lgpl.sh">check-lgpl.sh</a></td><td>Checks the output: arm64 only, dynamic library, install name, linked libraries, exported functions</td><td><code>7a704abed65fee506fbce791a38e6c513c0b810cfa11c8a32f7628fb6ab9b17a</code></td></tr>
+<tr><td><a href="build/inputs.lock">inputs.lock</a></td><td>Every input: file name, sha256, upstream URL</td><td><code>3b13303d36f03f0106938187fd044d2bac8cb17a7cedf06d1819e670690f122c</code></td></tr>
+<tr><td><a href="build/required-exports.txt">required-exports.txt</a></td><td>The functions the framework must export (used by the Ren'Py runtime in the app)</td><td><code>f050a56f5c6179548634c67bfa3b2b9a5b43fa40a9cd50f3cfd4f08402fea229</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Requirements: macOS, Xcode (clang, ar, lipo, xcodebuild), cmake, pkg-config, perl, curl, patch.</p>
+
+<h2>3. Rebuild</h2>
+<p>The scripts expect this layout (the work folder name is free):</p>
+<pre>work/
+  tools/renpy/build-lgpl.sh
+  tools/renpy/check-lgpl.sh
+  tools/renpy/inputs.lock
+  tools/renpy/required-exports.txt
+  build/renpy-lgpl/cache/   (optional: the files of section 1; otherwise they are downloaded and checked)</pre>
+<pre>chmod +x work/tools/renpy/*.sh
+work/tools/renpy/build-lgpl.sh --force</pre>
+<p>The result is <code>work/third_party/renpy-ios/RenPyLGPL.xcframework</code> (iphoneos arm64 and iphonesimulator arm64, minimum iOS 14.0).
+To use modified source, put your file in the cache folder under the same name and change its sha256 in <code>inputs.lock</code>.
+If you build in another way, the framework is still a valid replacement when it has the install name
+<code>@rpath/RenPyLGPL.framework/RenPyLGPL</code>, is arm64, exports every function in <code>required-exports.txt</code>,
+and takes its SDL functions from <code>@rpath/SDL2.framework/SDL2</code>. <code>check-lgpl.sh</code> verifies this.</p>
+
+<h2>4. Replace the framework in the app and re-sign</h2>
+<ol>
+<li>Unpack your PushPocket .ipa (it is a zip): <code>unzip PushPocket.ipa</code>.</li>
+<li>Replace <code>Payload/PushPocket.app/Frameworks/RenPyLGPL.framework</code> with <code>ios-arm64/RenPyLGPL.framework</code> from the xcframework you built.</li>
+<li>Replace <code>Payload/PushPocket.app/embedded.mobileprovision</code> with your own provisioning profile, then re-sign with your own Apple development certificate:
+<pre>codesign -f -s "&lt;certificate name&gt;" Payload/PushPocket.app/Frameworks/RenPyLGPL.framework
+codesign -f -s "&lt;certificate name&gt;" --entitlements &lt;entitlements.plist&gt; Payload/PushPocket.app</pre></li>
+<li>Pack it again: <code>zip -r PushPocket-relinked.ipa Payload</code>.</li>
+<li>Install it on your own device with Xcode (Devices and Simulators) or <code>xcrun devicectl device install app</code>.</li>
+</ol>
+
+<h2>Contact</h2>
+<p><a href="mailto:tom.apps.support@gmail.com">tom.apps.support@gmail.com</a></p>
+</section>
+
+<section id="ja" lang="ja" class="lang">
+<h1>Ren'Py の LGPL 部分のソース</h1>
+<p>PushPocket は Ren'Py のゲームを、アプリに組み込んだ Ren'Py 8.5.3.26051504 で動かします。
+そのうち LGPL の部分はアプリ本体にリンクせず、別の動的フレームワーク
+<code>PushPocket.app/Frameworks/RenPyLGPL.framework</code> として同梱しており、作り直して差し替えることができます。</p>
+<p>このページでは、そのフレームワークを作るのに使った正確なソース、私たちのビルドスクリプト、差し替えの手順を提供します。
+これらのファイルは、それを使ったアプリの版を最後に配布してから少なくとも 3 年間、ここで提供します。
+各ファイルの sha256 は上の英語の表と <a href="build/inputs.lock">inputs.lock</a> に記載しています。</p>
+<h2>ファイル</h2>
+<ul>
+<li>FFmpeg 4.3.1（LGPL-2.1-or-later）：<a href="src/ffmpeg-4.3.1.tar.gz">ffmpeg-4.3.1.tar.gz</a>、Ren'Py のパッチ <a href="src/ffmpeg-4.3.1-sse.diff">ffmpeg-4.3.1-sse.diff</a>、<a href="src/ffmpeg-4.3.1-ff_seek_frame_binary.diff">ffmpeg-4.3.1-ff_seek_frame_binary.diff</a></li>
+<li>GNU FriBidi 1.0.7（LGPL-2.1-or-later）：<a href="src/fribidi-1.0.7.tar.bz2">fribidi-1.0.7.tar.bz2</a></li>
+<li>alphablit.c と surface.h（LGPL-2.0-or-later）：<a href="src/renpy-alphablit.c">renpy-alphablit.c</a>、<a href="src/renpy-surface.h">renpy-surface.h</a></li>
+<li>SDL_gfx（LGPL、版の記載なし）：<a href="src/renpy-SDL_gfxPrimitives.c">renpy-SDL_gfxPrimitives.c</a>、<a href="src/renpy-SDL_gfxPrimitives.h">renpy-SDL_gfxPrimitives.h</a>、<a href="src/renpy-SDL_gfxPrimitives_font.h">renpy-SDL_gfxPrimitives_font.h</a></li>
+<li>LGPL 以外で同じフレームワークに入るもの：libaom 3.5.0（BSD-2-Clause と AOM 特許ライセンス）<a href="src/libaom-3.5.0.tar.gz">libaom-3.5.0.tar.gz</a>。コンパイル用の見出しのみ：SDL2 2.0.20（Zlib）<a href="src/SDL2-2.0.20.tar.gz">SDL2-2.0.20.tar.gz</a></li>
+<li>ビルドスクリプト：<a href="build/build-lgpl.sh">build-lgpl.sh</a>、<a href="build/check-lgpl.sh">check-lgpl.sh</a>、<a href="build/inputs.lock">inputs.lock</a>、<a href="build/required-exports.txt">required-exports.txt</a></li>
+<li>ライセンス本文：<a href="LICENSE.txt">LICENSE.txt</a></li>
+</ul>
+<h2>作り直しと差し替え</h2>
+<ol>
+<li>上の 3 章の配置にスクリプトを置き、<code>tools/renpy/build-lgpl.sh --force</code> を実行します。変更したソースを使うときは、キャッシュに同じ名前で置き、<code>inputs.lock</code> の sha256 を書き換えます。</li>
+<li>.ipa を <code>unzip</code> で展開し、<code>Payload/PushPocket.app/Frameworks/RenPyLGPL.framework</code> を、作った xcframework の <code>ios-arm64/RenPyLGPL.framework</code> で置き換えます。</li>
+<li><code>embedded.mobileprovision</code> を自分のプロファイルに置き換え、自分の証明書で <code>codesign</code> により再署名します（コマンドは上の 4 章）。</li>
+<li><code>zip -r</code> で .ipa に戻し、Xcode または <code>xcrun devicectl device install app</code> で自分の端末に入れます。</li>
+</ol>
+<p>お問い合わせ：<a href="mailto:tom.apps.support@gmail.com">tom.apps.support@gmail.com</a></p>
+</section>
+</main>
+</body>
+</html>
